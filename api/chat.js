@@ -22,7 +22,11 @@ export default async function handler(req, res) {
     });
 
     const data = await response.json();
-    res.status(200).json(data);
+    
+    // 응답에서 텍스트 추출
+    const reply = data?.content?.[0]?.text || '다시 질문해주세요!';
+    res.status(200).json({ reply });
+    
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
